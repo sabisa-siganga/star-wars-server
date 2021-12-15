@@ -24,3 +24,29 @@ export const findImage = async (url: string) => {
     return defaultImg;
   }
 };
+
+export const getHomeWorld = async (url: string) => {
+  try {
+    const response = await GetData(url);
+
+    const { data } = response;
+
+    return {
+      image: await findImage(
+        `https://starwars-visualguide.com/assets/img/planets/${findId(url)}.jpg`
+      ),
+      name: data.name,
+      population: data.population,
+      size: data.diameter,
+    };
+  } catch (error) {
+    console.log(error);
+
+    return {
+      image: "",
+      name: "",
+      population: "",
+      size: "",
+    };
+  }
+};

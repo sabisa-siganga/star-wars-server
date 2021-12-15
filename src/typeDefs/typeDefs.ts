@@ -35,6 +35,7 @@ const typeDefs = gql`
 
   type Query {
     characters(page: Int): CharacterList
+    characterSearch(search: String!): [Character]!
   }
 `;
 

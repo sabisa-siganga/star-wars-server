@@ -1,31 +1,5 @@
-import { findId, findImage } from "../finder";
+import { findId, findImage, getHomeWorld } from "../finder";
 import { GetData } from "../request";
-
-const getHomeWorld = async (url: string) => {
-  try {
-    const response = await GetData(url);
-
-    const { data } = response;
-
-    return {
-      image: await findImage(
-        `https://starwars-visualguide.com/assets/img/planets/${findId(url)}.jpg`
-      ),
-      name: data.name,
-      population: data.population,
-      size: data.diameter,
-    };
-  } catch (error) {
-    console.log(error);
-
-    return {
-      image: "",
-      name: "",
-      population: "",
-      size: "",
-    };
-  }
-};
 
 const extractPage = (input: string) => {
   const split = input.split("=");
@@ -57,6 +31,7 @@ const calculatePagination = (
   };
 };
 
+// Fetch characters
 const fetchCharacters = async (parent: any, args: { page: string }) => {
   try {
     let page = 1;
