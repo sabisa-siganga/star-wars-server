@@ -1,4 +1,4 @@
-import { findId, findImage, getHomeWorld } from "../finder";
+import { findId, findImage, getHomeWorld, toArray } from "../finder";
 import { GetData } from "../request";
 
 // Search for a character
@@ -15,20 +15,21 @@ const searchCharacter = async (parent: any, args: { search: string }) => {
     const { data } = response;
 
     const results = data.results.map(async (character: any) => {
+      const id = findId(character.url);
+
       return {
+        id: parseInt(id),
         name: character.name,
         height: character.height,
         mass: character.mass,
         characterImage: await findImage(
-          `https://starwars-visualguide.com/assets/img/characters/${findId(
-            character.url
-          )}.jpg`
+          `https://starwars-visualguide.com/assets/img/characters/${id}.jpg`
         ),
         birthYear: character.birth_year,
-        gender: character.male,
-        hairColor: character.hair_color,
-        eyeColor: character.eye_color,
-        skinColor: character.skin_color,
+        gender: character.gender,
+        hairColor: toArray(character.hair_color),
+        eyeColor: toArray(character.eye_color),
+        skinColor: toArray(character.skin_color),
 
         homeWorld: await getHomeWorld(character.homeworld),
       };

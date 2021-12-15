@@ -9,6 +9,7 @@ const typeDefs = gql`
   }
 
   type Character {
+    id: Int!
     name: String!
     characterImage: String
     birthYear: String

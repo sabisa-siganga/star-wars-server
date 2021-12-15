@@ -50,3 +50,11 @@ export const getHomeWorld = async (url: string) => {
     };
   }
 };
+
+export const toArray = (word: string) => {
+  const str = word.split(",").map((value) => {
+    return value.trim();
+  });
+
+  return str;
+};
